@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class penisballs : MonoBehaviour
+public class PenisBalls : MonoBehaviour
 {
     public int l1;
     public int l2;
@@ -16,7 +13,10 @@ public class penisballs : MonoBehaviour
     public Slider lSlider;
     public Slider mSlider;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Make the lists accessible from other scripts
+    public List<int> llist = new List<int>();
+    public List<int> mlist = new List<int>();
+
     void Start()
     {
         lSlider.onValueChanged.AddListener(delegate { Values(); });
@@ -27,22 +27,19 @@ public class penisballs : MonoBehaviour
     {
         GameObject OG = GameObject.Find("Harmonic");
         GameObject Child1 = OG.transform.GetChild(0).gameObject;
-        //l1 = OG.transform.Find("Sphere1").GetComponent<SphericalHarmonicsController>().l;
-        //m1 = OG.transform.Find("Sphere1").GetComponent<SphericalHarmonicsController>().m;
+
         l1 = Child1.GetComponent<SphericalHarmonicsController>().l;
         m1 = Child1.GetComponent<SphericalHarmonicsController>().m;
 
-
         GameObject OG2 = GameObject.Find("HarmonicPrefab(Clone)");
-        GameObject Child2 = OG2.transform.GetChild(0).gameObject;      
-        //l2 = OG2.transform.Find("Sphere2").GetComponent<SphericalHarmonicsController>().l;
-        //m2 = OG2.transform.Find("Sphere2").GetComponent<SphericalHarmonicsController>().m;
-        l2 = Child2.GetComponent<SphericalHarmonicsController>().l;        
-        m2 = Child2.GetComponent<SphericalHarmonicsController>().m;
-        
+        GameObject Child2 = OG2.transform.GetChild(0).gameObject;
 
-        List<int> llist = new List<int>();
-        List<int> mlist = new List<int>();
+        l2 = Child2.GetComponent<SphericalHarmonicsController>().l;
+        m2 = Child2.GetComponent<SphericalHarmonicsController>().m;
+
+        // Clear old values before adding new ones
+        llist.Clear();
+        mlist.Clear();
 
         llist.Add(l1);
         llist.Add(l2);
@@ -51,6 +48,6 @@ public class penisballs : MonoBehaviour
 
         print(llist[0]);
         print(mlist[0]);
-        
     }
 }
+
