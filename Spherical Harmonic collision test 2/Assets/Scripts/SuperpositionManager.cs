@@ -26,17 +26,9 @@ public class SuperpositionManager : MonoBehaviour
 
         GameObject Child1 = OG.transform.GetChild(0).gameObject;
 
-        // Get the 'penisballs' script component
-        penisballs pbScript = Child1.GetComponent<penisballs>();
-        if (pbScript == null)
-        {
-            Debug.LogError("HarmonicDataController script not found on Child1!");
-            return;
-        }
-
         // Retrieve lists from the script
-        List<int> llist = pbScript.llist;
-        List<int> mlist = pbScript.mlist;
+        List<int> llist = Child1.GetComponent<penisballs>().llist;
+        List<int> mlist = Child1.GetComponent<penisballs>().mlist;
 
         if (llist == null || mlist == null || llist.Count != mlist.Count)
         {
