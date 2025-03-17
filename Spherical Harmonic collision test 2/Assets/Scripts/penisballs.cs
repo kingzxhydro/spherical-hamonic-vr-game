@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//  This script is used for the initial state (pre-superposition)
 public class PenisBalls : MonoBehaviour
 {
     public int l1;
