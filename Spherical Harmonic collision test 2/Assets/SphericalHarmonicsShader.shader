@@ -53,7 +53,7 @@
 
                 for (int ll = 2; ll <= l; ll++)
                 {
-                    P_lm = ((2.0 * ll - 1.0) * x * P_lm_1 - (ll - 1.0) * P_lm_2) / ll;
+                    P_lm = ((2.0 * ll - 1.0) * x * P_lm_1 - (ll + m - 1.0) * P_lm_2) / ll;
                     P_lm_2 = P_lm_1;
                     P_lm_1 = P_lm;
                 }
@@ -71,7 +71,7 @@
                 float Ylm = cos(_M * phi) * legendre(_L, abs(_M), cos(theta));
 
                 // Normalize Ylm to range [0,1]
-                float intensity = (Ylm + 1.0);
+                float intensity = (Ylm + 1.0) / 2.0;
 
                 // Map intensity to yellow (low) and red (high)
                 float4 color = lerp(float4(1, 1, 0, 1), float4(1, 0, 0, 1), intensity);

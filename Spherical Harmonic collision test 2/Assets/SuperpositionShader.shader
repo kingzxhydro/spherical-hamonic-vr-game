@@ -83,48 +83,11 @@
 
                 }
 
-
-                // Find Min/Max of sumYlm
-
+                // Normalize by the number of harmonics
                 sumYlm = sumYlm / max(1, _NumHarmonics);
 
-                int sumMin = 999999;
+                float intensity = (sumYlm + 1.0) / 2.0;
 
-                float balls = 1
-                for j in sumYlm
-                {
-                    balls +=1
-                }
-
-                for(int i = 0; i < sumYlm.length(); i++)
-                {
-                    if(sumYlm[i] < sumMin)
-                    {
-                        sumMin = sumYlm[i];
-                    }
-                    return sumMin;
-                }
-
-                sumYlm -= sumMin;
-
-                int sumMax = -999999;
-                for(int i = 0, i < balls; i++)
-                {
-                    if(sumYlm[i] > sumMax)
-                    {
-                        sumMax = sumYlm[i];
-                    }
-                    return sumMax;
-                }
-
-                sumYlm /= sumMax;
-
-
-
-                // Normalize by the number of harmonics
-                
-
-                
 
                 // Color gradient ()
                 float4 color = lerp(float4(1, 1, 0, 1), float4(1, 0, 0, 1), intensity);

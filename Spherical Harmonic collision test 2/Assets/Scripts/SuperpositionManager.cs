@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -18,12 +19,22 @@ public class SuperpositionManager : MonoBehaviour
 
     public void UpdateShader()
     {
+        StartCoroutine(UpdateShaderNextFrame());
+    }
+
+    private IEnumerator UpdateShaderNextFrame()
+    {
+        yield return null; // Wait one frame to ensure values are fully updated
+
+        // Log the start of the function
+        Debug.Log("UpdateShader function called");
+
         // Find the Harmonic GameObject and get its first child
         GameObject OG = GameObject.Find("Harmonic");
         if (OG == null)
         {
             Debug.LogError("Harmonic GameObject not found!");
-            return;
+            yield break;
         }
 
         GameObject Child1 = OG.transform.GetChild(0).gameObject;
@@ -35,14 +46,18 @@ public class SuperpositionManager : MonoBehaviour
         if (llist == null || mlist == null || llist.Count != mlist.Count)
         {
             Debug.LogError("Harmonic lists are null or mismatched in size!");
-            return;
+            yield break;
         }
 
         int NumHarmonics = llist.Count;
-        print("NumHarmonics" + NumHarmonics);
+        Debug.Log("NumHarmonics: " + NumHarmonics);
 
         // Send number of harmonics to shader
         mat.SetInt("_NumHarmonics", NumHarmonics);
+
+        // Log harmonic values being passed to the shader
+        Debug.Log("lArray: " + string.Join(",", llist));
+        Debug.Log("mArray: " + string.Join(",", mlist));
 
         float[] lArray = new float[NumHarmonics];
         float[] mArray = new float[NumHarmonics];
@@ -51,12 +66,14 @@ public class SuperpositionManager : MonoBehaviour
         {
             lArray[i] = (float)llist[i];
             mArray[i] = (float)mlist[i];
-
-            mat.SetFloatArray("_LArray", lArray);
-            mat.SetFloatArray("_MArray", mArray);
-
-            Array.Clear(lArray, 0, lArray.Length);
-            Array.Clear(mArray, 0, mArray.Length);
         }
+
+        mat.SetFloatArray("_LArray", lArray);
+        mat.SetFloatArray("_MArray", mArray);
+
+        // Log values after they've been set
+        Debug.Log("L Array sent to shader: " + string.Join(",", lArray));
+        Debug.Log("M Array sent to shader: " + string.Join(",", mArray));
     }
+
 }
