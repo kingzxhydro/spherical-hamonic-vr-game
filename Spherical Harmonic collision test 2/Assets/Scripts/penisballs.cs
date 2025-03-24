@@ -33,19 +33,26 @@ public class PenisBalls : MonoBehaviour
         m1 = Child1.GetComponent<SphericalHarmonicsController>().m;
 
         GameObject OG2 = GameObject.Find("HarmonicPrefab(Clone)");
-        GameObject Child2 = OG2.transform.GetChild(0).gameObject;
 
-        l2 = Child2.GetComponent<SphericalHarmonicsController>().l;
-        m2 = Child2.GetComponent<SphericalHarmonicsController>().m;
+        if (OG2 != null) {
 
+            GameObject Child2 = OG2.transform.GetChild(0).gameObject;
+            l2 = Child2.GetComponent<SphericalHarmonicsController>().l;
+            m2 = Child2.GetComponent<SphericalHarmonicsController>().m;
+        }
         // Clear old values before adding new ones
         llist.Clear();
         mlist.Clear();
 
         llist.Add(l1);
-        llist.Add(l2);
         mlist.Add(m1);
-        mlist.Add(m2);
+        
+
+        if (OG2 != null)
+        {
+            llist.Add(l2);
+            mlist.Add(m2);
+        }
 
         print(llist[0]);
         print(mlist[0]);

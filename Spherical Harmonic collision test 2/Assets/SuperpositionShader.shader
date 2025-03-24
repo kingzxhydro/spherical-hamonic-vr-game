@@ -18,9 +18,11 @@
             float4 _Color;
 
             // Arrays (Passed from SuperpositionManager code)
-            int _NumHarmonics;   // Number of harmonics
-            int _LList[10];      // l values. 10 used as a placeholder length
-            int _MList[10];      // m values
+            int _NumHarmonics;   
+            float _LArray[10];
+            float _MArray[10];
+
+            
 
             struct appdata_t
             {
@@ -74,19 +76,57 @@
 
                 for (int idx = 0; idx < _NumHarmonics; idx++)
                 {
-                    int L = _LList[idx];
-                    int M = _MList[idx];
+                    int L = _LArray[idx];
+                    int M = _MArray[idx];
 
                     sumYlm += cos(M * phi) * legendre(L, abs(M), cos(theta));
+
                 }
 
-                // Normalize by the number of harmonics
+
+                // Find Min/Max of sumYlm
+
                 sumYlm = sumYlm / max(1, _NumHarmonics);
 
-                // Map to [0,1] for color visualization
-                float intensity = (sumYlm + 1.0) * 0.5;
+                int sumMin = 999999;
 
-                // Color gradient (Yellow to Red)
+                float balls = 1
+                for j in sumYlm
+                {
+                    balls +=1
+                }
+
+                for(int i = 0; i < sumYlm.length(); i++)
+                {
+                    if(sumYlm[i] < sumMin)
+                    {
+                        sumMin = sumYlm[i];
+                    }
+                    return sumMin;
+                }
+
+                sumYlm -= sumMin;
+
+                int sumMax = -999999;
+                for(int i = 0, i < balls; i++)
+                {
+                    if(sumYlm[i] > sumMax)
+                    {
+                        sumMax = sumYlm[i];
+                    }
+                    return sumMax;
+                }
+
+                sumYlm /= sumMax;
+
+
+
+                // Normalize by the number of harmonics
+                
+
+                
+
+                // Color gradient ()
                 float4 color = lerp(float4(1, 1, 0, 1), float4(1, 0, 0, 1), intensity);
 
                 return color;

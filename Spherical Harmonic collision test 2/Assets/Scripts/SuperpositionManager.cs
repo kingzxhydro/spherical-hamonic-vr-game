@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SuperpositionManager : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class SuperpositionManager : MonoBehaviour
         UpdateShader();
     }
 
-    void UpdateShader()
+    public void UpdateShader()
     {
         // Find the Harmonic GameObject and get its first child
         GameObject OG = GameObject.Find("Harmonic");
@@ -27,8 +29,8 @@ public class SuperpositionManager : MonoBehaviour
         GameObject Child1 = OG.transform.GetChild(0).gameObject;
 
         // Retrieve lists from the script
-        List<int> llist = Child1.GetComponent<penisballs>().llist;
-        List<int> mlist = Child1.GetComponent<penisballs>().mlist;
+        List<int> llist = Child1.GetComponent<PenisBalls>().llist;
+        List<int> mlist = Child1.GetComponent<PenisBalls>().mlist;
 
         if (llist == null || mlist == null || llist.Count != mlist.Count)
         {
@@ -36,16 +38,25 @@ public class SuperpositionManager : MonoBehaviour
             return;
         }
 
-        int numHarmonics = llist.Count;
+        int NumHarmonics = llist.Count;
+        print("NumHarmonics" + NumHarmonics);
 
         // Send number of harmonics to shader
-        mat.SetInt("_NumHarmonics", numHarmonics);
+        mat.SetInt("_NumHarmonics", NumHarmonics);
 
-        // Manually set L and M values (since Unity does not support SetIntArray)
-        for (int i = 0; i < numHarmonics; i++)
+        float[] lArray = new float[NumHarmonics];
+        float[] mArray = new float[NumHarmonics];
+
+        for (int i = 0; i < NumHarmonics; i++)
         {
-            mat.SetInt("_L" + i, llist[i]);
-            mat.SetInt("_M" + i, mlist[i]);
+            lArray[i] = (float)llist[i];
+            mArray[i] = (float)mlist[i];
+
+            mat.SetFloatArray("_LArray", lArray);
+            mat.SetFloatArray("_MArray", mArray);
+
+            Array.Clear(lArray, 0, lArray.Length);
+            Array.Clear(mArray, 0, mArray.Length);
         }
     }
 }
