@@ -86,6 +86,7 @@
                 // Normalize by the number of harmonics
                 sumYlm = sumYlm / max(1, _NumHarmonics);
 
+                // not divide by 2, as for this it makes it very washed out
                 float intensity = (sumYlm + 1.0) / 2.0;
 
 

@@ -62,7 +62,22 @@ public class PenisBalls : MonoBehaviour
             mlist.Add(m2);
         }
 
-        // Debug Logging
+        // send lists to liststorer for access to superpositionmanager
+
+        GameObject receiver = GameObject.Find("ListStorer");
+        ListStorerScript liststorer = receiver.GetComponent<ListStorerScript>();
+
+        if (receiver != null)
+        {
+            liststorer.Receivellist(llist);
+        }
+
+        if (receiver != null)
+        {
+            liststorer.Receivemlist(mlist);
+        }
+
+        // Debugging
         Debug.Log("Harmonic 1: L = " + l1 + ", M = " + m1);
         if (OG2 != null)
         {

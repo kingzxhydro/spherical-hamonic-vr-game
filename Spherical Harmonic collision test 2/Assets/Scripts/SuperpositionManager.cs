@@ -29,25 +29,12 @@ public class SuperpositionManager : MonoBehaviour
         // Log the start of the function
         Debug.Log("UpdateShader function called");
 
-        // Find the Harmonic GameObject and get its first child
-        GameObject OG = GameObject.Find("Harmonic");
-        if (OG == null)
-        {
-            Debug.LogError("Harmonic GameObject not found!");
-            yield break;
-        }
-
-        GameObject Child1 = OG.transform.GetChild(0).gameObject;
+        // Find the ListStorer GameObject and reteive l and m lists
+        GameObject listStorer = GameObject.Find("ListStorer");
 
         // Retrieve lists from the script
-        List<int> llist = Child1.GetComponent<PenisBalls>().llist;
-        List<int> mlist = Child1.GetComponent<PenisBalls>().mlist;
-
-        if (llist == null || mlist == null || llist.Count != mlist.Count)
-        {
-            Debug.LogError("Harmonic lists are null or mismatched in size!");
-            yield break;
-        }
+        List<int> llist = listStorer.GetComponent<ListStorerScript>().llist;
+        List<int> mlist = listStorer.GetComponent<ListStorerScript>().mlist;
 
         int NumHarmonics = llist.Count;
         Debug.Log("NumHarmonics: " + NumHarmonics);
