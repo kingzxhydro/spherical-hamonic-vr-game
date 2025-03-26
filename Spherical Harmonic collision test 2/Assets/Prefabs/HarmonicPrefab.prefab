@@ -1020,8 +1020,10 @@ MonoBehaviour:
   l2: 0
   m1: 0
   m2: 0
-  lSlider: {fileID: 6931761375290350511}
-  mSlider: {fileID: 5937668887388682218}
+  l1Slider: {fileID: 6931761375290350511}
+  m1Slider: {fileID: 5937668887388682218}
+  llist: 
+  mlist: 
 --- !u!1 &8852378637652757698
 GameObject:
   m_ObjectHideFlags: 0

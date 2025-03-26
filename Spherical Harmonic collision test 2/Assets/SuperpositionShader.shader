@@ -1,10 +1,8 @@
-﻿Shader "Custom/SphericalHarmonics"
+﻿Shader "Custom/SuperposedHarmonics"
 {
     Properties
     {
         _Color ("Base Color", Color) = (1,1,1,1)
-        _L ("L (Polar Oscillations)", Range(0,5)) = 0
-        _M ("M (Azimuthal Oscillations)", Range(-5,5)) = 0
     }
     SubShader
     {
@@ -18,8 +16,13 @@
 
             // Shader Properties
             float4 _Color;
-            int _L;
-            int _M;
+
+            // Arrays (Passed from SuperpositionManager code)
+            int _NumHarmonics;   
+            float _LArray[10];
+            float _MArray[10];
+
+            
 
             struct appdata_t
             {
@@ -41,19 +44,19 @@
                 return o;
             }
 
-            // Recursive Legendre polynomial function
+            // Legendre polynomial function (recursive)
             float legendre(int l, int m, float x)
             {
                 if (l == 0) return 1.0;
                 if (l == 1) return x;
 
-                float P_lm_1 = x;  // P_1m(x)
-                float P_lm_2 = 1.0;  // P_0m(x)
+                float P_lm_1 = x;  
+                float P_lm_2 = 1.0;  
                 float P_lm;
 
                 for (int ll = 2; ll <= l; ll++)
                 {
-                    P_lm = ((2.0 * ll - 1.0) * x * P_lm_1 - (ll + m - 1.0) * P_lm_2) / ll;
+                    P_lm = ((2.0 * ll - 1.0) * x * P_lm_1 - (ll - 1.0) * P_lm_2) / ll;
                     P_lm_2 = P_lm_1;
                     P_lm_1 = P_lm;
                 }
@@ -61,19 +64,33 @@
                 return P_lm;
             }
 
+            // Fragment Shader (Superposition Calculation)
             float4 frag(v2f i) : SV_Target
             {
                 float3 n = normalize(i.worldNormal);
-                float theta = acos(n.y);  // Polar angle (0 to π)
-                float phi = atan2(n.z, n.x);  // Azimuthal angle (0 to 2π)
+                float theta = acos(n.y);  
+                float phi = atan2(n.z, n.x);
 
-                // Compute the spherical harmonic function
-                float Ylm = cos(_M * phi) * legendre(_L, abs(_M), cos(theta));
+                // Superposition loop
+                float sumYlm = 0.0;
 
-                // Normalize Ylm to range [0,1]
-                float intensity = (Ylm + 1.0) / 2.0;
+                for (int idx = 0; idx < _NumHarmonics; idx++)
+                {
+                    int L = _LArray[idx];
+                    int M = _MArray[idx];
 
-                // Map intensity to yellow (low) and red (high)
+                    sumYlm += cos(M * phi) * legendre(L, abs(M), cos(theta));
+
+                }
+
+                // Normalize by the number of harmonics
+                sumYlm = sumYlm / max(1, _NumHarmonics);
+
+                // not divide by 2, as for this it makes it very washed out
+                float intensity = (sumYlm + 1.0) / 2.0;
+
+
+                // Color gradient ()
                 float4 color = lerp(float4(1, 1, 0, 1), float4(1, 0, 0, 1), intensity);
 
                 return color;
@@ -82,5 +99,4 @@
         }
     }
 }
-
 

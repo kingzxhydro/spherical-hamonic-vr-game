@@ -1,56 +1,93 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class penisballs : MonoBehaviour
+// This script is used for the initial state (pre-superposition)
+public class PenisBalls : MonoBehaviour
 {
     public int l1;
     public int l2;
     public int m1;
     public int m2;
 
-    public Slider lSlider;
-    public Slider mSlider;
+    public Slider l1Slider;
+    public Slider m1Slider;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Make the lists accessible from other scripts
+    public List<int> llist = new List<int>();
+    public List<int> mlist = new List<int>();
+
     void Start()
     {
-        lSlider.onValueChanged.AddListener(delegate { Values(); });
-        mSlider.onValueChanged.AddListener(delegate { Values(); });
+        l1Slider.onValueChanged.AddListener(delegate { Values(); });
+        m1Slider.onValueChanged.AddListener(delegate { Values(); });
     }
 
     void Values()
     {
+        StartCoroutine(UpdateValuesNextFrame());
+    }
+
+    IEnumerator UpdateValuesNextFrame()
+    {
+        yield return null; // Wait until the next frame to ensure the sliders update
+
         GameObject OG = GameObject.Find("Harmonic");
         GameObject Child1 = OG.transform.GetChild(0).gameObject;
-        //l1 = OG.transform.Find("Sphere1").GetComponent<SphericalHarmonicsController>().l;
-        //m1 = OG.transform.Find("Sphere1").GetComponent<SphericalHarmonicsController>().m;
+
         l1 = Child1.GetComponent<SphericalHarmonicsController>().l;
         m1 = Child1.GetComponent<SphericalHarmonicsController>().m;
 
-
         GameObject OG2 = GameObject.Find("HarmonicPrefab(Clone)");
-        GameObject Child2 = OG2.transform.GetChild(0).gameObject;      
-        //l2 = OG2.transform.Find("Sphere2").GetComponent<SphericalHarmonicsController>().l;
-        //m2 = OG2.transform.Find("Sphere2").GetComponent<SphericalHarmonicsController>().m;
-        l2 = Child2.GetComponent<SphericalHarmonicsController>().l;        
-        m2 = Child2.GetComponent<SphericalHarmonicsController>().m;
-        
 
-        List<int> llist = new List<int>();
-        List<int> mlist = new List<int>();
+        if (OG2 != null)
+        {
+            GameObject Child2 = OG2.transform.GetChild(0).gameObject;
+            l2 = Child2.GetComponent<SphericalHarmonicsController>().l;
+            m2 = Child2.GetComponent<SphericalHarmonicsController>().m;
+        }
 
+        // Clear old values before adding new ones
+        llist.Clear();
+        mlist.Clear();
+
+        // Add new values
         llist.Add(l1);
-        llist.Add(l2);
         mlist.Add(m1);
-        mlist.Add(m2);
 
-        print(llist[0]);
-        print(mlist[0]);
-        
+        if (OG2 != null)
+        {
+            llist.Add(l2);
+            mlist.Add(m2);
+        }
+
+        // send lists to liststorer for access to superpositionmanager
+
+        GameObject receiver = GameObject.Find("ListStorer");
+        ListStorerScript liststorer = receiver.GetComponent<ListStorerScript>();
+
+        if (receiver != null)
+        {
+            liststorer.Receivellist(llist);
+        }
+
+        if (receiver != null)
+        {
+            liststorer.Receivemlist(mlist);
+        }
+
+        // Debugging
+        Debug.Log("Harmonic 1: L = " + l1 + ", M = " + m1);
+        if (OG2 != null)
+        {
+            Debug.Log("Harmonic 2: L = " + l2 + ", M = " + m2);
+        }
+
+        Debug.Log("Updated Harmonic Lists:");
+        Debug.Log("L List: " + string.Join(",", llist));
+        Debug.Log("M List: " + string.Join(",", mlist));
     }
 }
+
+
