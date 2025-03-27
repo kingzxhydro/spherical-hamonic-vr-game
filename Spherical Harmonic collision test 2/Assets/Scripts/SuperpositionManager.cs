@@ -6,6 +6,8 @@ using UnityEngine.Rendering;
 
 public class SuperpositionManager : MonoBehaviour
 {
+    public List<int> larraycorrect = new List<int> {1, 3 };
+    public List<int> marraycorrect = new List<int> { 0, 4 };
     private Material mat;
 
     void Start()
@@ -57,6 +59,8 @@ public class SuperpositionManager : MonoBehaviour
 
         mat.SetFloatArray("_LArray", lArray);
         mat.SetFloatArray("_MArray", mArray);
+
+
 
         // Log values after they've been set
         Debug.Log("L Array sent to shader: " + string.Join(",", lArray));
