@@ -609,7 +609,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 5226631139544158224}
   m_HandleRect: {fileID: 6794653003647502199}
   m_Direction: 0
-  m_MinValue: -5
+  m_MinValue: 0
   m_MaxValue: 5
   m_WholeNumbers: 1
   m_Value: 0
@@ -890,7 +890,7 @@ GameObject:
   - component: {fileID: 5817644757142407452}
   - component: {fileID: 859933745675605542}
   - component: {fileID: 5830016175197417957}
-  - component: {fileID: 1963507082229552862}
+  - component: {fileID: 3488468003542853182}
   m_Layer: 0
   m_Name: Sphere2
   m_TagString: Untagged
@@ -1004,7 +1004,7 @@ MonoBehaviour:
   mSlider: {fileID: 5937668887388682218}
   l: 0
   m: 0
---- !u!114 &1963507082229552862
+--- !u!114 &3488468003542853182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1013,9 +1013,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8747217523008086668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f1be35cff54ff4bb379c2a7712af57, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ed9f39234efd1d46aa6bed3e34404f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TempListl: 
+  TempListm: 
   l1: 0
   l2: 0
   m1: 0
@@ -1033,9 +1035,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1897530320177272615}
+  - component: {fileID: 254889258056307381}
+  - component: {fileID: 9103449197735798718}
   m_Layer: 0
   m_Name: HarmonicPrefab
-  m_TagString: Untagged
+  m_TagString: SpawnedHarmonic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1057,3 +1061,37 @@ Transform:
   - {fileID: 254060009032765643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &254889258056307381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852378637652757698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4849ca64eb4b0447922b65718dcd344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!135 &9103449197735798718
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852378637652757698}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

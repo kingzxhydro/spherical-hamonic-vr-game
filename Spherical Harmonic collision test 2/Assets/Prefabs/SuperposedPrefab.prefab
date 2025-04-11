@@ -111,10 +111,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6753101890008488743}
-  - component: {fileID: 7477582412989987159}
+  - component: {fileID: 5399239067458032956}
+  - component: {fileID: 8472438488153817537}
+  - component: {fileID: 8502847137061329461}
   m_Layer: 0
   m_Name: SuperposedPrefab
-  m_TagString: Untagged
+  m_TagString: SuperposedHarmonic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +139,55 @@ Transform:
   - {fileID: 6384154095131209233}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7477582412989987159
+--- !u!54 &5399239067458032956
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3953199879416163202}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &8472438488153817537
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3953199879416163202}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8502847137061329461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,10 +196,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3953199879416163202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 312ee34766bd68a40b277c7b410ce582, type: 3}
+  m_Script: {fileID: 11500000, guid: 3db11772ac24d114491edeca2bbc01b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yourmum: 0
+  superpositionPrefab: {fileID: 9066663435846857880, guid: cce694ad2bb1a15478741ea2ffc3eaca, type: 3}
 --- !u!1 &6025312609849818130
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,9 +211,7 @@ GameObject:
   - component: {fileID: 6945911653827918787}
   - component: {fileID: 4412283875276589143}
   - component: {fileID: 7784272747645604402}
-  - component: {fileID: 6329789337444064832}
-  - component: {fileID: 8606098948878215096}
-  - component: {fileID: 8497739268831118004}
+  - component: {fileID: 334621640455429626}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -217,7 +265,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f42b0c456e7026a4aa0fe0219f979861, type: 2}
+  - {fileID: 2100000, guid: 5f780e1dcc3256e4b81a21f053f0349a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -239,28 +287,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6329789337444064832
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6025312609849818130}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8606098948878215096
+--- !u!114 &334621640455429626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,27 +296,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6025312609849818130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d995a046958c164eba41e7976c5ad56, type: 3}
+  m_Script: {fileID: 11500000, guid: 67543c5b33a638d4988d09e543571e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalMaterial: {fileID: 2100000, guid: f42b0c456e7026a4aa0fe0219f979861, type: 2}
-  lSlider: {fileID: 0}
-  mSlider: {fileID: 0}
---- !u!114 &8497739268831118004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6025312609849818130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d995a046958c164eba41e7976c5ad56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalMaterial: {fileID: 2100000, guid: f42b0c456e7026a4aa0fe0219f979861, type: 2}
-  lSlider: {fileID: 0}
-  mSlider: {fileID: 0}
 --- !u!1 &7010674057001973941
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Spawn Harmonic
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -427,8 +436,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -592,7 +601,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1228662112616510634}
         m_TargetAssemblyTypeName: PrefabSpawner, Assembly-CSharp
         m_MethodName: SpawnNewHarmonic
         m_Mode: 1
