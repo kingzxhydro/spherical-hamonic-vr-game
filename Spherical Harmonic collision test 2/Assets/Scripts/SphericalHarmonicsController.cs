@@ -14,16 +14,18 @@ public class SphericalHarmonicsController : MonoBehaviour
     void Start()
     {
         // Create a new material instance so changes don't affect all objects
-        instanceMaterial = new Material(originalMaterial);
-        GetComponent<Renderer>().material = instanceMaterial;
+        instanceMaterial = GetComponent<Renderer>().material;
 
-        // Ensure sliders update the instance material
-        lSlider.onValueChanged.AddListener(delegate { UpdateL(); });
-        mSlider.onValueChanged.AddListener(delegate { UpdateM(); });
+        // Check if sliders exist before adding listeners
+        if (lSlider != null)
+            lSlider.onValueChanged.AddListener(delegate { UpdateL(); });
 
-        // Set initial values
-        UpdateL();
-        UpdateM();
+        if (mSlider != null)
+            mSlider.onValueChanged.AddListener(delegate { UpdateM(); });
+
+        // Set initial values if sliders exist
+        if (lSlider != null) UpdateL();
+        if (mSlider != null) UpdateM();
     }
 
     void UpdateL()
