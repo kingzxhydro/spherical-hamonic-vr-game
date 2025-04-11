@@ -3,9 +3,12 @@ using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class LevelProgressor : MonoBehaviour
 {
+    [SerializeField] private GameObject textprefab;
+
     public List<int> lArrayCorrect1 = new List<int> { 4, 5 };
     public List<int> mArrayCorrect1 = new List<int> { 3, 4 };
 
@@ -81,17 +84,38 @@ public class LevelProgressor : MonoBehaviour
 
         if (arelistsequal == true)
         {
+            Textscript progressor = GameObject.Find("CorrectHarmonic").GetComponentInChildren<Textscript>();
+            progressor.showmessage("Well done");
             print("Hooray you did it!!");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             levelCount += 1;
         }
+        
+        
+        
 
-
+        if (arelistsequal == false)
+        {
+            Textscript progressor = GameObject.Find("CorrectHarmonic").GetComponentInChildren<Textscript>();
+            progressor.showmessage("Try again!!");
+        }
     }
 
     public void ResetLevel()
     {
         SceneManager.LoadScene(levelCount);
     }
+
+
+    //public void showmessage(string message)
+    //{
+    //    if (textprefab)
+    //    {
+    //        Quaternion rotation = Quaternion.LookRotation(-Camera.main.transform.forward);
+    //        Vector3 textposition = Camera.main.transform.position + Camera.main.transform.forward * 1;
+    //        GameObject prefab = Instantiate(textprefab, textposition, rotation);
+    //        prefab.GetComponentInChildren<TextMesh>().text = message;
+    //    }
+    //}
 
 }

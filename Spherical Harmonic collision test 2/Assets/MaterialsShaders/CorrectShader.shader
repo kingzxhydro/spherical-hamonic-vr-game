@@ -45,34 +45,21 @@ Shader "Custom/CorrectHarmonic"
             // Accurate Associated Legendre Polynomial function
             float legendre(int l, int m, float x)
             {
-                float pmm = 1.0;
-                if (m > 0)
+                if (l == 0) return 1.0;
+                if (l == 1) return x;
+
+                float P_lm_1 = x;  // P_1m(x)
+                float P_lm_2 = 1.0;  // P_0m(x)
+                float P_lm;
+
+                for (int ll = 2; ll <= l; ll++)
                 {
-                    float sqrt_1_minus_x2 = sqrt(max(0.0, 1.0 - x * x));
-                    float fact = 1.0;
-                    for (int i = 1; i <= m; i++)
-                    {
-                        pmm *= -fact * sqrt_1_minus_x2;
-                        fact += 2.0;
-                    }
+                    P_lm = ((2.0 * ll - 1.0) * x * P_lm_1 - (ll + m - 1.0) * P_lm_2) / ll;
+                    P_lm_2 = P_lm_1;
+                    P_lm_1 = P_lm;
                 }
 
-                if (l == m)
-                    return pmm;
-
-                float pmmp1 = x * (2.0 * m + 1.0) * pmm;
-                if (l == m + 1)
-                    return pmmp1;
-
-                float pll = 0.0;
-                for (int ll = m + 2; ll <= l; ll++)
-                {
-                    pll = ((2.0 * ll - 1.0) * x * pmmp1 - (ll + m - 1.0) * pmm) / (ll - m);
-                    pmm = pmmp1;
-                    pmmp1 = pll;
-                }
-
-                return pll;
+                return P_lm;
             }
 
             // Fragment Shader (Superposition Calculation)
